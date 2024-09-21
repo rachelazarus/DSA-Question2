@@ -1,0 +1,11 @@
+[package]
+org = "shamiso"
+name = "ShoppingClient"
+version = "0.1.0"
+distribution = "2201.9.2"
+
+[build-options]
+observabilityIncluded = true
+[dependencies]
+grpc = "1.0.0"
+protobuf = "1.0.0"
