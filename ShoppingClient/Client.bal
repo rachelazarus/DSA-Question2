@@ -377,9 +377,17 @@ function addToCart() returns error? {
 function placeOrder() returns error? {
     io:println("\nEnter Your User ID to Place Order: ");
     string userID = io:readln();
-    UserID user = {user_id: userID};
-    OrderResponse response = check onlineShoppingClient->PlaceOrder(user);
-
-    io:print(response.message);
+    
+    // Confirm the order before placing it
+    io:println("Are you sure you want to place the order? (yes/no)");
+    string confirmation = io:readln();
+    if confirmation.toLowerAscii() == "yes" {
+        UserID user = {user_id: userID};
+        OrderResponse response = check onlineShoppingClient->PlaceOrder(user);
+        io:print(response.message);
+    } else {
+        io:println("Order placement cancelled.");
+    }
     return;
 }
+
