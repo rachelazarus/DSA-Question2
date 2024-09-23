@@ -36,6 +36,7 @@ function InitializeUsers() returns grpc:Error? {
     check createUsersStreamingClient->sendUser(Customer1);
     check createUsersStreamingClient->sendUser(Customer2);
     check createUsersStreamingClient->sendUser(Customer3);
+    check createUsersStreamingClient->sendUser(Customer4);
     check createUsersStreamingClient->complete();
 }
 
@@ -50,32 +51,31 @@ function StartAndAuthentication() returns error? {
     int role = check int:fromString(io:readln());
 
     if role == 1 {
-        io:println("Please enter userId");
-        string userId = io:readln();
-        if userId == "172s" {
-            check handleAdminOperations("Shamiso");
-        }
+    io:println("Please enter userId");
+    string userId = io:readln();
+    if userId == "172s" {
+        check handleAdminOperations("Shamiso");
+    } else {
+        io:print("Invalid user Id, Try again");
+        check StartAndAuthentication();
+    }
 
-        else {
-            io:print("Invalid user Id, Try again");
-            check StartAndAuthentication();
-        }
+} else if role == 2 {
+    io:println("Please enter userId");
+    string userId = io:readln();
+    if userId == "173s" {
+        check handleCustomerOperations("Rachel");
+    } else if userId == "174s" {
+        check handleCustomerOperations("Taapopi");
+    } else if userId == "175s" {
+        check handleCustomerOperations("MJ");
+    } else if userId == "180" {
+        check handleCustomerOperations("John");
+    } else {
+        io:print("Invalid user Id, Try again");
+        check StartAndAuthentication();
+    }
 
-    } else if role == 2 {
-        io:println("Please enter userId");
-        string userId = io:readln();
-        if userId == "173s" {
-            check handleCustomerOperations("Rachel");
-        }
-        else if userId == "174s" {
-            check handleCustomerOperations("Taapopi");
-        }
-        else if userId == "175s" {
-            check handleCustomerOperations("MJ");
-        }
-        else {
-            io:print("Invalid user Id, Try again");
-        }
 
     } else {
         io:println("Invalid role selected.");
