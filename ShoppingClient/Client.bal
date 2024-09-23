@@ -26,19 +26,17 @@ function InitializeUsers() returns grpc:Error? {
         name: "MJ",
         role: "Customer"
     };
-
+ User Customer4 = {
+        user_id: "180",
+        name: "John",
+        role: "Customer"
+    };
     CreateUsersStreamingClient createUsersStreamingClient = check onlineShoppingClient->CreateUsers();
     check createUsersStreamingClient->sendUser(Admin1);
     check createUsersStreamingClient->sendUser(Customer1);
     check createUsersStreamingClient->sendUser(Customer2);
     check createUsersStreamingClient->sendUser(Customer3);
     check createUsersStreamingClient->complete();
-<<<<<<< HEAD
-    //UserCreationResponse? createUsersResponse = check createUsersStreamingClient->receiveUserCreationResponse();
-=======
-    UserCreationResponse? createUsersResponse = check createUsersStreamingClient->receiveUserCreationResponse();
->>>>>>> d589cbe5c4ffc0906d9124e5eaa64d7e38edab6f
-
 }
 
 public function main() returns error? {
@@ -365,15 +363,11 @@ function searchProduct() returns error? {
 
 function addToCart() returns error? {
     io:println("\nEnter Your User ID: ");
-<<<<<<< HEAD
+
     string userID = io:readln();
     io:println("Enter SKU of Product to Add to Cart: ");
     string sku =  io:readln();
-=======
-    string userID = check io:readln();
-    io:println("Enter SKU of Product to Add to Cart: ");
-    string sku = check io:readln();
->>>>>>> d589cbe5c4ffc0906d9124e5eaa64d7e38edab6f
+
     AddToCartRequest cartRequest = {user_id: userID, sku: sku};
     CartResponse response = check onlineShoppingClient->AddToCart(cartRequest);
     io:println(response.message);
